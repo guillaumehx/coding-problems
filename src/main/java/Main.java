@@ -3,11 +3,13 @@ import java.util.List;
 
 public class Main {
 
-    public static int calculate(String expression) {
+    public static double calculate(String expression) {
 
         List<String> expressionSplit = new ArrayList<>(List.of(expression.split(" ")));
 
-        if(expressionSplit.size() == 1) { return Integer.parseInt(expression); }
+        if(expressionSplit.size() == 1) {
+            return Double.parseDouble(expression);
+        }
 
         for (int i = 0; i < expressionSplit.size(); i++) {
 
@@ -16,12 +18,12 @@ public class Main {
 
             if(!isOperation(operation)) { continue; }
 
-            int operationResult = 0;
-            int firstOperand = 0;
-            int secondOperand = Integer.parseInt(expressionSplit.get(i - 1));
+            double operationResult = 0;
+            double firstOperand = 0;
+            double secondOperand = Double.parseDouble(expressionSplit.get(i - 1));
 
             if(isBinary) {
-                firstOperand = Integer.parseInt(expressionSplit.get(i - 2));
+                firstOperand = Double.parseDouble(expressionSplit.get(i - 2));
             }
 
             operationResult = getResult(operation, firstOperand, secondOperand);
@@ -42,9 +44,9 @@ public class Main {
         return !"sqrt".equals(s);
     }
 
-    private static int getResult(String operation, int firstOperand, int secondOperand) {
+    private static double getResult(String operation, double firstOperand, double secondOperand) {
 
-        int operationResult = 0;
+        double operationResult = 0;
 
         if("+".equals(operation)) {
             operationResult = firstOperand + secondOperand;
@@ -59,13 +61,13 @@ public class Main {
             operationResult = firstOperand / secondOperand;
         }
         if("sqrt".equals(operation)) {
-            operationResult = (int) Math.sqrt(secondOperand);
+            operationResult = Math.sqrt(secondOperand);
         }
 
         return operationResult;
     }
 
-    private static void removeFromList(List<String> expressionSplit, int operationResult, int i, boolean isBinary) {
+    private static void removeFromList(List<String> expressionSplit, double operationResult, int i, boolean isBinary) {
 
         expressionSplit.add(i + 1, String.valueOf(operationResult));
         expressionSplit.remove(i);
