@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Main {
+public class ReversePolishNotation {
 
     public static double calculate(String expression) {
 
@@ -77,5 +77,4 @@ public class Main {
             expressionSplit.remove(i - 2);
         }
     }
-
 }
