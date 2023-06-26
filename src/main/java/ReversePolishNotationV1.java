@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReversePolishNotation {
+public class ReversePolishNotationV1 {
 
     public static double calculate(String expression) {
 
