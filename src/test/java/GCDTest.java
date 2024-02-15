@@ -7,7 +7,7 @@ import org.junit.Test;
 public class GCDTest {
 
     @Test
-    public void test1() {
+    public void testMultipleValues() {
         Assert.assertEquals(18, GCD.execute(461952, 116298));
         Assert.assertEquals(526, GCD.execute(24826148, 45296490));
         Assert.assertEquals(2, GCD.execute(6, 16));

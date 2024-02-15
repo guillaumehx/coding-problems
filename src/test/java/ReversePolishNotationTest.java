@@ -24,7 +24,7 @@ public class ReversePolishNotationTest {
     }
 
     @Test
-    public void bulkTest() {
+    public void testMultipleValues() {
         Assert.assertEquals(12, ReversePolishNotationV1.calculate("2 4 sqrt * 8 +"), 0);
         Assert.assertEquals(24, ReversePolishNotationV1.calculate("2 4 8 + *"), 0);
         Assert.assertEquals(-10, ReversePolishNotationV1.calculate("2 4 8 + -"), 0);
