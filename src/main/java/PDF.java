@@ -1,4 +1,4 @@
-import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatLightLaf;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -9,10 +9,6 @@ import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
-
-import com.formdev.flatlaf.FlatLightLaf;
-import javax.swing.UIManager;
-import javax.swing.text.DefaultCaret;
 
 public class PDF {
 
