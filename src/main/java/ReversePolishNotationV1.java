@@ -1,80 +1,62 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Stack;
 
 public class ReversePolishNotationV1 {
 
     public static double calculate(String expression) {
+        Stack<Double> stack = new Stack<>();
 
-        List<String> expressionSplit = new ArrayList<>(List.of(expression.split(" ")));
-
-        if(expressionSplit.size() == 1) {
-            return Double.parseDouble(expression);
-        }
-
-        for (int i = 0; i < expressionSplit.size(); i++) {
-
-            String operation = expressionSplit.get(i);
-            boolean isBinary = isBinaryOperation(operation);
-
-            if(!isOperation(operation)) { continue; }
-
-            double operationResult = 0;
-            double firstOperand = 0;
-            double secondOperand = Double.parseDouble(expressionSplit.get(i - 1));
-
-            if(isBinary) {
-                firstOperand = Double.parseDouble(expressionSplit.get(i - 2));
+        for (String token : expression.split("\\s+")) {
+            if (isNumber(token)) {
+                stack.push(Double.parseDouble(token));
+            } else if (isOperation(token)) {
+                applyOperation(token, stack);
             }
-
-            operationResult = getResult(operation, firstOperand, secondOperand);
-            removeFromList(expressionSplit, operationResult, i, isBinary);
-
-            return calculate(String.join(" ", expressionSplit));
         }
 
-        return 0;
+        return stack.pop();
+    }
+
+    private static boolean isNumber(String token) {
+        try {
+            Double.parseDouble(token);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     private static boolean isOperation(String s) {
-        List<String> operators = List.of("+", "-", "*", "/", "sqrt");
-        return operators.contains(s);
+        return "+-*/sqrt".contains(s);
     }
 
     private static boolean isBinaryOperation(String s) {
         return !"sqrt".equals(s);
     }
 
-    private static double getResult(String operation, double firstOperand, double secondOperand) {
-
-        double operationResult = 0;
-
-        if("+".equals(operation)) {
-            operationResult = firstOperand + secondOperand;
+    private static void applyOperation(final String operation, Stack<Double> stack) {
+        double secondOperand = stack.pop();
+        double firstOperand = isBinaryOperation(operation) ? stack.pop() : 0;
+        double result = 0;
+        switch (operation) {
+            case "+":
+                result = firstOperand + secondOperand;
+                break;
+            case "-":
+                result = firstOperand - secondOperand;
+                break;
+            case "*":
+                result = firstOperand * secondOperand;
+                break;
+            case "/":
+                result = firstOperand / secondOperand;
+                break;
+            case "sqrt":
+                result = Math.sqrt(secondOperand);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid operation: " + operation);
         }
-        if("-".equals(operation)) {
-            operationResult = firstOperand - secondOperand;
-        }
-        if("*".equals(operation)) {
-            operationResult = firstOperand * secondOperand;
-        }
-        if("/".equals(operation)) {
-            operationResult = firstOperand / secondOperand;
-        }
-        if("sqrt".equals(operation)) {
-            operationResult = Math.sqrt(secondOperand);
-        }
 
-        return operationResult;
-    }
-
-    private static void removeFromList(List<String> expressionSplit, double operationResult, int i, boolean isBinary) {
-
-        expressionSplit.add(i + 1, String.valueOf(operationResult));
-        expressionSplit.remove(i);
-        expressionSplit.remove(i - 1);
-
-        if(isBinary) {
-            expressionSplit.remove(i - 2);
-        }
+        stack.push(result);
     }
 }
