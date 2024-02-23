@@ -3,7 +3,7 @@ import java.util.List;
 
 public class PigIt {
 
-    public static String pigIt(String expression) {
+    public static String execute(String expression) {
 
         List<String> words = new ArrayList<>(List.of(expression.split(" ")));
 
