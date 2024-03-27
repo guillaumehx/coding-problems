@@ -32,25 +32,25 @@ public class RPN {
     public static Double executeOperation(Stack<Double> stack, String operand) {
 
         double right = stack.pop();
-        double temp = 0, left = 0;
+        double result = 0, left = 0;
 
         if (!"sqrt".equals(operand)) {
             left = stack.pop();
         }
 
         switch (operand) {
-            case "+": temp = left + right;
+            case "+": result = left + right;
                 break;
-            case "-": temp = left - right;
+            case "-": result = left - right;
                 break;
-            case "*": temp = left * right;
+            case "*": result = left * right;
                 break;
-            case "/": temp = left / right;
+            case "/": result = left / right;
                 break;
-            case "sqrt": temp = Math.sqrt(right);
+            case "sqrt": result = Math.sqrt(right);
                 break;
         }
 
-        return temp;
+        return result;
     }
 }
