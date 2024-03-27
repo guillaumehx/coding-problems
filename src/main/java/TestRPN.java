@@ -22,24 +22,13 @@ public class TestRPN {
     }
 
     public static Double calculateValue(Double firstOperand, Double secondOperand, String operator) {
-        double result = 0;
-        switch (operator) {
-            case "+":
-                result = firstOperand + secondOperand;
-                break;
-            case "-":
-                result = firstOperand - secondOperand;
-                break;
-            case "*":
-                result = firstOperand * secondOperand;
-                break;
-            case "/":
-                result = firstOperand / secondOperand;
-                break;
-            case "sqrt":
-                result = Math.sqrt(secondOperand);
-                break;
-        }
-        return result;
+        return switch (operator) {
+            case "+" -> firstOperand + secondOperand;
+            case "-" -> firstOperand - secondOperand;
+            case "*" -> firstOperand * secondOperand;
+            case "/" -> firstOperand / secondOperand;
+            case "sqrt" ->Math.sqrt(secondOperand);
+            default -> throw new RuntimeException("Operation not (yet) supported");
+        };
     }
 }
