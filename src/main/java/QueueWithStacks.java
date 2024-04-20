@@ -25,6 +25,10 @@ public class QueueWithStacks<T> {
         return inStack.isEmpty() && outStack.isEmpty();
     }
 
+    public int size() {
+        throw new RuntimeException("Not yet implemented");
+    }
+
     public T dequeue() {
         prepareOut();
         return outStack.pop();
