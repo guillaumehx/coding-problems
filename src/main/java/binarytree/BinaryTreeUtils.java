@@ -45,6 +45,30 @@ public class BinaryTreeUtils {
         }
     }
 
+    public static void parcoursLargeurInverse(Node<?> A) {
+        // TODO this work but complexity is bad
+        if (A != null) {
+            Stack<Node<?>> finalStack = new Stack<>();
+            Queue<Node<?>> tempStack = new ArrayDeque<>();
+            tempStack.add(A);
+            while (!tempStack.isEmpty()) {
+                Node<?> n = tempStack.poll();
+                finalStack.push(n);
+                if (n.getRight() != null) {
+                    tempStack.add(n.getRight());
+                }
+                if (n.getLeft() != null) {
+                    tempStack.add(n.getLeft());
+                }
+            }
+
+            while (!finalStack.isEmpty()) {
+                Node<?> n = finalStack.pop();
+                System.out.print(n.getKey() + " ");
+            }
+        }
+    }
+
     public static void parcoursDiagonalV1(Node<?> A, Queue<Node<?>> queue) {
         // Recursion
         Queue<Node<?>> tempQueue = queue == null ? new ArrayDeque<>() : queue;

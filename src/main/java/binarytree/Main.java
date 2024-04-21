@@ -24,6 +24,17 @@ public class Main {
         nF.setLeft(nJ);
 
         BinaryTreeUtils.Printer.printClean(root);
+        BinaryTreeUtils.parcoursLargeur(root);
+        System.out.println();
+        BinaryTreeUtils.parcoursLargeurInverse(root);
+
+
+        if (true) {
+            return;
+        }
+
+
+        BinaryTreeUtils.Printer.printClean(root);
         BinaryTreeUtils.Printer.printCompact(root);
 
 
