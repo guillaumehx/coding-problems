@@ -138,6 +138,9 @@ public class BinaryTreeUtils {
         return tempStack.pop();
     }
 
+    /**
+     * Taken from https://stackoverflow.com/questions/4965335/how-to-print-binary-tree-diagram-in-java
+     */
     public static class Printer {
 
         /**
@@ -250,7 +253,6 @@ public class BinaryTreeUtils {
         }
 
         /**
-         * Taken from https://stackoverflow.com/questions/4965335/how-to-print-binary-tree-diagram-in-java
          * @author michal.kreuzman
          */
         public static <T extends Comparable<?>> void printClean(PrintableNode root) {
