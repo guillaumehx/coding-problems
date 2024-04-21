@@ -39,20 +39,20 @@ public class QueueWithStacks<T> {
         return outStack.peek();
     }
 
-    private void prepareIn() {
-        if (inStack.isEmpty()) {
-            while (!outStack.isEmpty()) {
-                inStack.push(outStack.pop());
+    private void prepareStacks(final Stack<T> source, final Stack<T> target) {
+        if (source.isEmpty()) {
+            while (!target.isEmpty()) {
+                source.push(target.pop());
             }
         }
     }
 
+    private void prepareIn() {
+        prepareStacks(inStack, outStack);
+    }
+
     private void prepareOut() {
-        if (outStack.isEmpty()) {
-            while (!inStack.isEmpty()) {
-                outStack.push(inStack.pop());
-            }
-        }
+        prepareStacks(outStack, inStack);
     }
 
 }
