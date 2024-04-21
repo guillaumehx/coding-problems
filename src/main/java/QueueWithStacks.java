@@ -26,7 +26,7 @@ public class QueueWithStacks<T> {
     }
 
     public int size() {
-        throw new RuntimeException("Not yet implemented");
+        return inStack.size() + outStack.size();
     }
 
     public T dequeue() {

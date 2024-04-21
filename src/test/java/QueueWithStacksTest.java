@@ -40,4 +40,33 @@ public class QueueWithStacksTest {
         Assert.assertEquals("A", queue.peek());
         Assert.assertFalse(queue.isEmpty());
     }
+
+    @Test
+    public void testSize() {
+
+        QueueWithStacks<String> queue = new QueueWithStacks<>();
+
+        queue.enqueue("A");
+        queue.enqueue("B");
+        queue.enqueue("C");
+
+        Assert.assertEquals(3, queue.size());
+        Assert.assertFalse(queue.isEmpty());
+
+        queue.dequeue();
+        queue.dequeue();
+
+        Assert.assertEquals(1, queue.size());
+        Assert.assertFalse(queue.isEmpty());
+
+        queue.dequeue();
+        Assert.assertEquals(0, queue.size());
+        Assert.assertTrue(queue.isEmpty());
+
+        queue.enqueue("A");
+
+        Assert.assertEquals(1, queue.size());
+        Assert.assertFalse(queue.isEmpty());
+
+    }
 }
