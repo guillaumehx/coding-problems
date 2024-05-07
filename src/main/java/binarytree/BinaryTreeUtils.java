@@ -162,6 +162,14 @@ public class BinaryTreeUtils {
         return tempStack.pop();
     }
 
+    public static Integer hauteur(final Node<String> A) {
+        if (A == null) {
+            return 0;
+        } else {
+            return 1 + Math.max(hauteur(A.getLeft()), hauteur(A.getRight()));
+        }
+    }
+
     /**
      * Taken from https://stackoverflow.com/questions/4965335/how-to-print-binary-tree-diagram-in-java
      */

@@ -24,9 +24,7 @@ public class Main {
         nF.setLeft(nJ);
 
         BinaryTreeUtils.Printer.printClean(root);
-        BinaryTreeUtils.parcoursLargeur(root);
-        System.out.println();
-        BinaryTreeUtils.parcoursLargeurInverse(root);
+        System.out.println(BinaryTreeUtils.hauteur(root));
 
 
         if (true) {
