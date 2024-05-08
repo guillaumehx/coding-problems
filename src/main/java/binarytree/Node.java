@@ -5,6 +5,7 @@ public class Node<T extends Comparable<?>> implements BinaryTreeUtils.PrintableN
     private T key;
     private Node<T> left;
     private Node<T> right;
+    private Node<T> parent;
 
     public Node(T key) {
         this.key = key;
@@ -45,6 +46,14 @@ public class Node<T extends Comparable<?>> implements BinaryTreeUtils.PrintableN
 
     public void setRight(Node<T> right) {
         this.right = right;
+    }
+
+    public Node<T> getParent() {
+        return parent;
+    }
+
+    public void setParent(Node<T> parent) {
+        this.parent = parent;
     }
 
     @Override
