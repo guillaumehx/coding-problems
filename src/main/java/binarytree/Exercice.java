@@ -1,5 +1,9 @@
 package binarytree;
 
+
+import static java.lang.Math.max;
+import static java.lang.Math.min;
+
 public class Exercice {
 
     /**
@@ -115,11 +119,8 @@ public class Exercice {
             return true;
         }
 
-        if (maxFromTree(A.getLeft()) > A.getKey() || minFromTree(A.getRight()) <= A.getKey()) {
-            return false;
-        }
-
-        if (minFromTree(A.getRight()) <= A.getKey()) {
+        if (maxArbre(A.getLeft()) > A.getKey() ||
+                minArbre(A.getRight()) <= A.getKey()) {
             return false;
         }
 
@@ -138,7 +139,7 @@ public class Exercice {
         if (A != null) {
             int l = maxArbre(A.getLeft());
             int r = maxArbre(A.getRight());
-            return Math.max(Math.max(l, r), A.getKey());
+            return max(max(l, r), A.getKey());
         } else {
             return Integer.MIN_VALUE;
         }
@@ -152,7 +153,7 @@ public class Exercice {
         if (A != null) {
             int l = minArbre(A.getLeft());
             int r = minArbre(A.getRight());
-            return Math.min(Math.min(l, r), A.getKey());
+            return min(min(l, r), A.getKey());
         } else {
             return Integer.MAX_VALUE;
         }
