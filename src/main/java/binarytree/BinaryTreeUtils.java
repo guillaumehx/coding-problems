@@ -105,18 +105,18 @@ public class BinaryTreeUtils {
         }
     }
 
-    public static void afficherExpression(Node<?> A) {
+    public static void afficherExpression2(Node<?> A) {
         if (A != null) {
             if (A.getLeft() != null) {
                 System.out.print("(");
-                afficherExpression(A.getLeft());
+                afficherExpression2(A.getLeft());
                 System.out.print(")");
 
             }
             System.out.print(A.getKey());
             if (A.getRight() != null) {
                 System.out.print("(");
-                afficherExpression(A.getRight());
+                afficherExpression2(A.getRight());
                 System.out.print(")");
             }
         }
@@ -162,7 +162,7 @@ public class BinaryTreeUtils {
         return tempStack.pop();
     }
 
-    public static Integer hauteur(final Node<String> A) {
+    public static Integer hauteur(final Node<Integer> A) {
         if (A == null) {
             return 0;
         } else {
