@@ -170,6 +170,19 @@ public class BinaryTreeUtils {
         }
     }
 
+    public static void reverse(final Node<Integer> T) {
+        if (T != null) {
+            reverse(T.getLeft());
+            reverse(T.getRight());
+
+            Node<Integer> left = T.getLeft();
+            Node<Integer> right = T.getRight();
+
+            T.setLeft(right);
+            T.setRight(left);
+        }
+    }
+
     /**
      * Taken from https://stackoverflow.com/questions/4965335/how-to-print-binary-tree-diagram-in-java
      */

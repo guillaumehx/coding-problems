@@ -3,120 +3,31 @@ package binarytree;
 public class Main {
     public static void main(String[] args) {
 
-        //Node<String> root = new Node<>("A");
-        //Node<String> nB = new Node<>("B");
-        //Node<String> nC = new Node<>("C");
-        //Node<String> nD = new Node<>("D");
-        //Node<String> nE = new Node<>("E");
-        //Node<String> nF = new Node<>("F");
-        //Node<String> nG = new Node<>("G");
-        //Node<String> nH = new Node<>("H");
-        //Node<String> nI = new Node<>("I");
-        //Node<String> nJ = new Node<>("J");
-        //Node<String> nK = new Node<>("K");
-//
-        //root.setChildren(nB, nC);
-        //nB.setChildren(nD, nE);
-        //nE.setChildren(nH, nI);
-        //nH.setLeft(nK);
-        //nD.setRight(nG);
-        //nC.setRight(nF);
-        //nF.setLeft(nJ);
-//
-        //BinaryTreeUtils.Printer.printClean(root);
-        //System.out.println(BinaryTreeUtils.hauteur(root));
+        Node<Integer> root = new Node<>(10);
+        Node<Integer> n1 = new Node<>(5);
+        Node<Integer> n2 = new Node<>(15);
+        Node<Integer> n3 = new Node<>(5);
+        Node<Integer> n4 = new Node<>(7);
+        Node<Integer> n5 = new Node<>(12);
+        Node<Integer> n6 = new Node<>(17);
+        Node<Integer> n7 = new Node<>(20);
+        Node<Integer> n8 = new Node<>(19);
 
+        root.setLeft(n1);
+        root.setRight(n2);
 
-        //if (true) {
-        //    return;
-        //}
+        n1.setLeft(n3);
+        n1.setRight(n4);
 
+        n2.setLeft(n5);
+        n2.setRight(n8);
 
-        //BinaryTreeUtils.Printer.printClean(root);
-        //BinaryTreeUtils.Printer.printCompact(root);
-//
-//
-        //BinaryTreeUtils.parcoursDiagonalV2(root);
-        //System.out.println();
-        //BinaryTreeUtils.parcoursDiagonalV1(root, null);
-//
-        //System.out.println();
-//
-//
-        //BinaryTreeUtils.parcoursPrefixe(root);
-        //System.out.println();
-        //BinaryTreeUtils.parcoursInfixe(root);
-        //System.out.println();
-        //BinaryTreeUtils.parcoursPostfixe(root);
-        //System.out.println();
+        n8.setLeft(n6);
+        n8.setRight(n7);
 
-
-        //Node<String> rootAdd = new Node<>("+");
-        //Node<String> nDiv = new Node<>("/");
-        //Node<String> nMulti = new Node<>("*");
-        //Node<String> n8 = new Node<>("8");
-        //Node<String> n2 = new Node<>("2");
-        //Node<String> n3 = new Node<>("3");
-        //Node<String> n5 = new Node<>("5");
-        //Node<String> n22 = new Node<>("2");
-        //Node<String> nMinus = new Node<>("-");
-
-        Node<String> rootAdd = new Node<>("∧");
-        Node<String> nDiv = new Node<>("p1");
-        Node<String> nMulti = new Node<>("∨");
-        Node<String> n3 = new Node<>("¬");
-        Node<String> n5 = new Node<>("p1");
-        Node<String> n22 = new Node<>("false");
-        Node<String> nMinus = new Node<>("⇒");
-        Node<String> nil = new Node<>("nil");
-        Node<String> p2 = new Node<>("p2");
-        Node<String> p3 = new Node<>("p3");
-        Node<String> v = new Node<>("∨");
-
-
-        rootAdd.setLeft(nDiv);
-        rootAdd.setRight(nMulti);
-
-        v.setLeft(p2);
-        v.setRight(p3);
-
-        n3.setLeft(v);
-        n3.setRight(nil);
-
-        nMulti.setLeft(n3);
-        nMulti.setRight(nMinus);
-
-        nMinus.setLeft(n5);
-        nMinus.setRight(n22);
-
-
-        BinaryTreeUtils.Printer.printClean(rootAdd);
-
-
-        Boolean[] bool = new Boolean[] { true, false, false };
-
-        System.out.println(Exercice.evaluerExpressionBooleenne(rootAdd, bool));
-
-        //System.out.println(BinaryTreeUtils.hauteurDeX(rootAdd, 20));
-
-        //System.out.println(BinaryTreeUtils.hauteur(rootAdd));
-        //System.out.println(BinaryTreeUtils.maxFromTree(rootAdd));
-        //System.out.println(BinaryTreeUtils.minFromTree(rootAdd));
-        //System.out.println(BinaryTreeUtils.isBST(rootAdd));
-
-        if (true) {
-            return;
-        }
-
-        //BinaryTreeUtils.afficherExpression1(rootAdd);
-        //System.out.println();
-        //BinaryTreeUtils.parcoursPostfixe(rootAdd);
-        //System.out.println();
-        //System.out.println(BinaryTreeUtils.evaluerExpression(rootAdd));
-
-        //BinaryTreeUtils.Printer.printClean(BinaryTreeUtils.createTreeFromRPN("8 2 / 3 5 2 - * +"));
-
-        //BinaryTreeUtils.parcoursLargeur(root);
+        BinaryTreeUtils.Printer.printClean(root);
+        BinaryTreeUtils.reverse(root);
+        BinaryTreeUtils.Printer.printClean(root);
 
     }
 }
