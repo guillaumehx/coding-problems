@@ -73,15 +73,6 @@ public class Main {
         Node<String> p3 = new Node<>("p3");
         Node<String> v = new Node<>("∨");
 
-        //Node<Integer> rootAdd = new Node<>(10);
-        //Node<Integer> nDiv = new Node<>(5);
-        //Node<Integer> nMulti = new Node<>(15);
-        //Node<Integer> n8 = new Node<>(5);
-        //Node<Integer> n2 = new Node<>(7);
-        //Node<Integer> n3 = new Node<>(12);
-        //Node<Integer> n5 = new Node<>(17);
-        //Node<Integer> n22 = new Node<>(20);
-        //Node<Integer> nMinus = new Node<>(19);
 
         rootAdd.setLeft(nDiv);
         rootAdd.setRight(nMulti);
@@ -97,6 +88,7 @@ public class Main {
 
         nMinus.setLeft(n5);
         nMinus.setRight(n22);
+
 
         BinaryTreeUtils.Printer.printClean(rootAdd);
 

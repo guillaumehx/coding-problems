@@ -13,7 +13,7 @@ public class Exercice {
      * @param T (arbre binaire)
      * @return Integer représentant le nombre de noeuds dans T
      */
-    public static Integer nombreDeNoeuds(final Node<String> T) {
+    public static Integer nombreDeNoeuds(final Node<?> T) {
         if (T != null) {
             return 1 + nombreDeNoeuds(T.getLeft()) + nombreDeNoeuds(T.getRight());
         }
@@ -111,7 +111,7 @@ public class Exercice {
      * possède la propriété des arbres binaires de recherche.
      *
      * @param A (arbre binaire)
-     * @return 'true' si l'arbre est un ABR, false sinon
+     * @return 'true' si l'arbre est un ABR, 'false' sinon
      */
     public static Boolean testeABR(final Node<Integer> A) {
 
