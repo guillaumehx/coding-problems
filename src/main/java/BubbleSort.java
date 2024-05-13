@@ -1,19 +1,19 @@
 public class BubbleSort {
 
-    public static void execute(int[] arr) {
+    public static void execute(int[] array) {
 
-        if (arr.length == 0 || arr.length == 1) {
+        if (array.length == 0 || array.length == 1) {
             return;
         }
 
-        int n = arr.length;
+        int n = array.length;
 
-        for (int j = 0; j < arr.length; j++) {
+        for (int j = 0; j < array.length; j++) {
             for (int i = 0; i < n - 1; i++) {
-                if (i + 1 < arr.length && arr[i] > arr[i+1]) {
-                    int temp = arr[i];
-                    arr[i] = arr[i+1];
-                    arr[i+1] = temp;
+                if (i + 1 < array.length && array[i] > array[i+1]) {
+                    int temp = array[i];
+                    array[i] = array[i+1];
+                    array[i+1] = temp;
                 }
             }
             n--;
