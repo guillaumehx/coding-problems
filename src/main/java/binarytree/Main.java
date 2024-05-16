@@ -26,10 +26,14 @@ public class Main {
         n8.setRight(n7);
 
         BinaryTreeUtils.Printer.printClean(root);
+
+
+
+
         //BinaryTreeUtils.insererABR(root, 10);
         //BinaryTreeUtils.supprimerABR(root, 10);
-        System.out.println(BinarySearchTreeUtils.insertionIterativeABR(root, 8).getKey());
-        BinaryTreeUtils.Printer.printClean(root);
+        //System.out.println(BinarySearchTreeUtils.insertionIterativeABR(root, 8).getKey());
+        //BinaryTreeUtils.Printer.printClean(root);
         //BinaryTreeUtils.reverse(root);
         //BinaryTreeUtils.Printer.printClean(root);
 

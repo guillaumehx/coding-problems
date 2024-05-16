@@ -170,6 +170,58 @@ public class BinaryTreeUtils {
         }
     }
 
+    // O(log n)
+    public static boolean rechercheDichotomique(int[] arr, int k, int bi, int bs) {
+        if (arr == null || arr.length == 0) {
+            return false;
+        } else {
+            if (bi > bs) {
+                return false;
+            }
+
+            int m = (int) (bi + Math.floor((bs-bi)/2));
+
+            if (k == arr[m]) {
+                return true;
+            } else if (k < arr[m]) {
+                return rechercheDichotomique(arr, k, bi, m - 1);
+            } else {
+                return rechercheDichotomique(arr, k, m + 1, bs);
+            }
+        }
+    }
+
+    public static boolean rechercheDichotomiqueCyclique(int[] arr, int k, int bi, int bs) {
+        if (arr == null || arr.length == 0) {
+            return false;
+        } else {
+            if (bi > bs) {
+                return false;
+            }
+
+            int m = (int) (bi + Math.floor((bs-bi)/2));
+
+            if (k == arr[m]) {
+                return true;
+            }
+
+            if (arr[bi] < arr[m-1]) {
+                return rechercheDichotomiqueCyclique(arr, k, bi, m - 1);
+            } else if (k > arr[bi] || k < arr[m-1]) {
+                return rechercheDichotomiqueCyclique(arr, k, bi, m - 1);
+            }
+
+
+            if (arr[m+1] < arr[bs]) {
+                return rechercheDichotomiqueCyclique(arr, k, m + 1, bs);
+            } else if (k > arr[m+1] || k < arr[bs]) {
+                return rechercheDichotomiqueCyclique(arr, k, m + 1, bs);
+            }
+        }
+
+        return false;
+    }
+
     public static void reverse(final Node<Integer> T) {
         if (T != null) {
             reverse(T.getLeft());
