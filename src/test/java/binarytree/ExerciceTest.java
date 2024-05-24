@@ -7,7 +7,8 @@ import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import static org.junit.Assert.assertEquals;
+import static binarytree.Exercice.*;
+import static org.junit.Assert.*;
 
 public class ExerciceTest {
 
@@ -17,7 +18,7 @@ public class ExerciceTest {
         final Node<Integer> T = createBinarySearchTree();
         BinaryTreeUtils.Printer.printClean(T);
 
-        assertEquals(9, (int) Exercice.nombreDeNoeuds(T));
+        assertEquals(9, (int) nombreDeNoeuds(T));
     }
 
     @Test
@@ -26,7 +27,7 @@ public class ExerciceTest {
         final Node<Integer> T = createBinarySearchTree();
         BinaryTreeUtils.Printer.printClean(T);
 
-        assertEquals(110, (int) Exercice.sommeDesValeursDesNoeuds(T));
+        assertEquals(110, (int) sommeDesValeursDesNoeuds(T));
     }
 
     @Test
@@ -37,13 +38,24 @@ public class ExerciceTest {
         BinaryTreeUtils.Printer.printClean(A);
 
         T = new Boolean[] { true, false, false };
-        assertEquals(true, Exercice.evaluerExpressionBooleenne(A, T));
+        assertEquals(true, evaluerExpressionBooleenne(A, T));
 
         T = new Boolean[] { false, true, true };
-        assertEquals(false, Exercice.evaluerExpressionBooleenne(A, T));
+        assertEquals(false, evaluerExpressionBooleenne(A, T));
 
         T = new Boolean[] { false, false, false };
-        assertEquals(false, Exercice.evaluerExpressionBooleenne(A, T));
+        assertEquals(false, evaluerExpressionBooleenne(A, T));
+    }
+
+    @Test
+    public void testArbreExpression() {
+        final Node<String> A = createBinaryExpressionTree();
+        BinaryTreeUtils.Printer.printClean(A);
+
+        assertTrue(testeArbreExpression(A));
+        assertTrue(testeArbreExpression(new Node<>("9")));
+        assertFalse(testeArbreExpression(null));
+        assertFalse(testeArbreExpression(new Node<>("9", null, new Node<>("-"))));
     }
 
     @Test
@@ -52,7 +64,7 @@ public class ExerciceTest {
         final Node<Integer> A = createBinarySearchTree();
         BinaryTreeUtils.Printer.printClean(A);
 
-        assertEquals(true, Exercice.testeABR(A));
+        assertEquals(true, testeABR(A));
     }
 
     @Test
@@ -61,7 +73,7 @@ public class ExerciceTest {
         final Node<Integer> A = new Node<>(10);
         BinaryTreeUtils.Printer.printClean(A);
 
-        assertEquals(true, Exercice.testeABR(A));
+        assertEquals(true, testeABR(A));
     }
 
     @Test
@@ -73,7 +85,7 @@ public class ExerciceTest {
 
         BinaryTreeUtils.Printer.printClean(A);
 
-        assertEquals(false, Exercice.testeABR(A));
+        assertEquals(false, testeABR(A));
     }
 
     @Test
@@ -82,8 +94,8 @@ public class ExerciceTest {
         final Node<Integer> A = createBinarySearchTree();
         BinaryTreeUtils.Printer.printClean(A);
 
-        assertEquals(20, (int) Exercice.maxArbre(A));
-        assertEquals(5, (int) Exercice.minArbre(A));
+        assertEquals(20, (int) maxArbre(A));
+        assertEquals(5, (int) minArbre(A));
     }
 
     @Test
@@ -92,11 +104,11 @@ public class ExerciceTest {
         final Node<Integer> A = createBinarySearchTree();
         BinaryTreeUtils.Printer.printClean(A);
 
-        assertEquals(4, (int) Exercice.hauteurDuNoeudX(A, 20));
-        assertEquals(4, (int) Exercice.hauteurDuNoeudX(A, 17));
-        assertEquals(1, (int) Exercice.hauteurDuNoeudX(A, 10));
-        assertEquals(2, (int) Exercice.hauteurDuNoeudX(A, 5));
-        assertEquals(Integer.MAX_VALUE, (int) Exercice.hauteurDuNoeudX(A, 1000));
+        assertEquals(4, (int) hauteurDuNoeudX(A, 20));
+        assertEquals(4, (int) hauteurDuNoeudX(A, 17));
+        assertEquals(1, (int) hauteurDuNoeudX(A, 10));
+        assertEquals(2, (int) hauteurDuNoeudX(A, 5));
+        assertEquals(Integer.MAX_VALUE, (int) hauteurDuNoeudX(A, 1000));
     }
 
     @Test

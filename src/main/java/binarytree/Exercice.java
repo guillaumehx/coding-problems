@@ -54,6 +54,31 @@ public class Exercice {
     }
 
     /**
+     * Exercice 5
+     * Écrire un algorithme qui, étant donné un arbre T, retourne vrai si T est un arbre d'expression, faux sinon.
+     *
+     * @param A (arbre d'expression)
+     * @return 'true' si l'arbre est un arbre d'expression, 'false' sinon
+     */
+    public static boolean testeArbreExpression(final Node<String> A) {
+        if (A == null) {
+            return false;
+        }
+
+        if (A.getLeft() == null && A.getRight() == null) {
+            return true;
+        }
+
+        if ("+-*/".contains(A.getKey())) {
+            if (testeArbreExpression(A.getLeft()) && testeArbreExpression(A.getRight())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Exercice 6 (Question d'examen)
      * Pour cette question, nous allons considérer des expression booléennes. Une expression booléenne est
      * constituée à l’aide de variables booléennes (elles ne peuvent valoir que vrai ou faux) et des opérateurs
@@ -176,7 +201,7 @@ public class Exercice {
         while (current != null) {
             if (x == current.getKey()) {
                 return h;
-            } else if (x <= current.getKey()) {
+            } else if (x < current.getKey()) {
                 current = current.getLeft();
             } else if (x > current.getKey()) {
                 current = current.getRight();
