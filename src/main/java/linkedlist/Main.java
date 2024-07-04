@@ -7,14 +7,18 @@ public class Main {
         LinkedList list = new LinkedList();
 
         LinkedListUtils.insertTete(list, 2);
-        LinkedListUtils.insertFin(list, 4);
-        LinkedListUtils.insertFin(list, 8);
-        LinkedListUtils.insertFin(list, 10);
+        LinkedListUtils.insertTete(list, 4);
+        LinkedListUtils.insertTete(list, 8);
+        LinkedListUtils.insertTete(list, 6);
+        LinkedListUtils.insertTete(list, 5);
 
-        LinkedListUtils.insertKElement(list, 5, 100);
         LinkedListUtils.afficherListe(list);
-
-        System.out.println(LinkedListUtils.dernierElement(list));
+        LinkedListUtils.insertKPosition(list, 2, 222);
+        System.out.println();
+        LinkedListUtils.afficherListe(list);
+        LinkedListUtils.deleteKPosition(list, 2);
+        System.out.println();
+        LinkedListUtils.afficherListe(list);
 
     }
 

@@ -2,13 +2,17 @@ package linkedlist;
 
 public class LinkedListUtils {
 
-    public static void insertTete(LinkedList list, int i) {
-        Link link = new Link(i);
-        if (list.getHead() == null) {
-            list.setHead(link);
-        } else {
-            link.setNext(list.getHead());
-            list.setHead(link);
+    public static void insertTete(LinkedList list, int k) {
+        Link link = new Link(k);
+        link.setNext(list.getHead());
+        list.setHead(link);
+    }
+
+    public static void supprimerTete(LinkedList list) {
+        Link link = list.getHead();
+        if (link != null) {
+            list.setHead(link.getNext());
+            link.setNext(null);
         }
     }
 
@@ -18,14 +22,6 @@ public class LinkedListUtils {
             insertTete(list, i);
         } else {
             link.setNext(new Link(i));
-        }
-    }
-
-    public static void supprimerTete(LinkedList list) {
-        Link link = list.getHead();
-        if (link != null) {
-            list.setHead(link.getNext());
-            link.setNext(null);
         }
     }
 
@@ -41,20 +37,48 @@ public class LinkedListUtils {
         }
     }
 
-    public static void insertKElement(LinkedList list, int k, int i) {
+    public static void insertKPosition(LinkedList list, int k, int i) {
         if (k == 1) {
             insertTete(list, i);
-        } else {
-            int j = 1;
-            Link l = list.getHead();
-            while (l.getNext() != null && j < k-1) {
-                j++;
-                l = l.getNext();
-            }
-            Link newL = new Link(i);
-            newL.setNext(l.getNext());
-            l.setNext(newL);
         }
+
+        int c = 1;
+        Link p = list.getHead();
+        while (c < k - 1 && p != null) {
+            c = c + 1;
+            p = p.getNext();
+        }
+
+        if (p == null || p.getNext() == null) {
+            System.exit(1);
+        }
+
+        Link q = new Link(i);
+        q.setNext(p.getNext());
+        p.setNext(q);
+    }
+
+    public static void deleteKPosition(LinkedList list, int k) {
+        if (k == 1) {
+            supprimerTete(list);
+        }
+
+        int c = 1;
+        Link p = list.getHead();
+        while (c < k - 1 && p != null) {
+            c = c + 1;
+            p = p.getNext();
+        }
+
+        if (p == null || p.getNext() == null) {
+            System.exit(1);
+        }
+
+        Link q = p.getNext();
+        p.setNext(q.getNext());
+        q.setNext(null);
+        q.setElement(null);
+
     }
 
     public static void afficherListe(LinkedList list) {
