@@ -2,13 +2,13 @@ package linkedlist;
 
 public class LinkedListUtils {
 
-    public static void insertTete(LinkedList list, int k) {
+    public static void insertHead(LinkedList list, int k) {
         Link link = new Link(k);
         link.setNext(list.getHead());
         list.setHead(link);
     }
 
-    public static void supprimerTete(LinkedList list) {
+    public static void deleteHead(LinkedList list) {
         Link link = list.getHead();
         if (link != null) {
             list.setHead(link.getNext());
@@ -19,7 +19,7 @@ public class LinkedListUtils {
     public static void insertFin(LinkedList list, int i) {
         Link link = dernierElement(list);
         if (link == null) {
-            insertTete(list, i);
+            insertHead(list, i);
         } else {
             link.setNext(new Link(i));
         }
@@ -39,7 +39,7 @@ public class LinkedListUtils {
 
     public static void insertKPosition(LinkedList list, int k, int i) {
         if (k == 1) {
-            insertTete(list, i);
+            insertHead(list, i);
         }
 
         int c = 1;
@@ -60,7 +60,7 @@ public class LinkedListUtils {
 
     public static void deleteKPosition(LinkedList list, int k) {
         if (k == 1) {
-            supprimerTete(list);
+            deleteHead(list);
         }
 
         int c = 1;
