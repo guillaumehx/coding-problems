@@ -26,175 +26,175 @@ public class AVLTreeUtils {
         n_15.setRight(n_71);
 
         BinaryTreeUtils.Printer.printClean(n_15);
-        n_15 = insertionAVL(n_15, 69);
-        n_15 = insertionAVL(n_15, 70);
-        n_15 = insertionAVL(n_15, 65);
-        n_15 = insertionAVL(n_15, 64);
-        n_15 = insertionAVL(n_15, 63);
-        n_15 = suppressionAVL(n_15, 65);
+        n_15 = insertAVL(n_15, 69);
+        n_15 = insertAVL(n_15, 70);
+        n_15 = insertAVL(n_15, 65);
+        n_15 = insertAVL(n_15, 64);
+        n_15 = insertAVL(n_15, 63);
+        n_15 = deleteAVL(n_15, 65);
         BinaryTreeUtils.Printer.printClean(n_15);
         //BinaryTreeUtils.Printer.printCompact(n_15);
     }
 
-    public static boolean rechercheAVL(final Node<Integer> A, int k) {
-        if (A == null) {
+    public static boolean searchAVL(final Node<Integer> T, int k) {
+        if (T == null) {
              return false;
         }
-        if (A.getKey() == k) {
+        if (T.getKey() == k) {
             return true;
-        } else if (k < A.getKey()) {
-            return rechercheAVL(A.getLeft(), k);
+        } else if (k < T.getKey()) {
+            return searchAVL(T.getLeft(), k);
         } else {
-            return rechercheAVL(A.getRight(), k);
+            return searchAVL(T.getRight(), k);
         }
     }
 
-    public static Node<Integer> insertionAVL(Node<Integer> A, int k) {
-        if (A == null) {
-            A = new Node<>(k);
-            A.setHeight(1);
+    public static Node<Integer> insertAVL(Node<Integer> T, int k) {
+        if (T == null) {
+            T = new Node<>(k);
+            T.setHeight(1);
         } else {
-            if (k < A.getKey()) {
-                A.setLeft(insertionAVL(A.getLeft(), k));
-                A = equilibrer(A);
-            } else if (k > A.getKey()) {
-                A.setRight(insertionAVL(A.getRight(), k));
-                A = equilibrer(A);
+            if (k < T.getKey()) {
+                T.setLeft(insertAVL(T.getLeft(), k));
+                T = balanceTree(T);
+            } else if (k > T.getKey()) {
+                T.setRight(insertAVL(T.getRight(), k));
+                T = balanceTree(T);
             }
         }
-        return A;
+        return T;
     }
 
-    public static Node<Integer> suppressionAVL(Node<Integer> A, int k) {
-        if (A != null) {
-            if (k < A.getKey()) {
-                A.setLeft(suppressionAVL(A.getLeft(), k));
-                A = equilibrer(A);
+    public static Node<Integer> deleteAVL(Node<Integer> T, int k) {
+        if (T != null) {
+            if (k < T.getKey()) {
+                T.setLeft(deleteAVL(T.getLeft(), k));
+                T = balanceTree(T);
             } else {
-                if (k > A.getKey()) {
-                    A.setRight(suppressionAVL(A.getRight(), k));
-                    A = equilibrer(A);
+                if (k > T.getKey()) {
+                    T.setRight(deleteAVL(T.getRight(), k));
+                    T = balanceTree(T);
                 } else {
-                    A = suppressionRacineAVL(A);
+                    T = deleteRootAVL(T);
                 }
             }
         }
-        return A;
+        return T;
     }
 
-    public static Node<Integer> suppressionRacineAVL(Node<Integer> A) {
-        if (estFeuille(A)) {
-            A = null;
+    public static Node<Integer> deleteRootAVL(Node<Integer> T) {
+        if (isLeaf(T)) {
+            T = null;
         } else {
-            if (A.getLeft() == null) {
-                A = A.getRight();
+            if (T.getLeft() == null) {
+                T = T.getRight();
             } else {
-                if (A.getRight() == null) {
-                    A = A.getLeft();
+                if (T.getRight() == null) {
+                    T = T.getLeft();
                 } else {
-                    Pair<Integer, Node<Integer>> pair = suppressionMinAVL(A.getRight());
-                    A.setKey(pair.getValue0());
-                    A.setRight(pair.getValue1());
-                    A = equilibrer(A);
+                    Pair<Integer, Node<Integer>> pair = deleteMinimumAVL(T.getRight());
+                    T.setKey(pair.getValue0());
+                    T.setRight(pair.getValue1());
+                    T = balanceTree(T);
                 }
             }
         }
-        return A;
+        return T;
     }
 
-    public static Pair<Integer, Node<Integer>> suppressionMinAVL(Node<Integer> A) {
+    public static Pair<Integer, Node<Integer>> deleteMinimumAVL(Node<Integer> T) {
         int minimum;
-        if (A.getLeft() == null) {
-            minimum = A.getKey();
-            A = A.getRight();
+        if (T.getLeft() == null) {
+            minimum = T.getKey();
+            T = T.getRight();
         } else {
-            Pair<Integer, Node<Integer>> pair = suppressionMinAVL(A.getLeft());
+            Pair<Integer, Node<Integer>> pair = deleteMinimumAVL(T.getLeft());
             minimum = pair.getValue0();
-            A.setLeft(pair.getValue1());
-            A = equilibrer(A);
+            T.setLeft(pair.getValue1());
+            T = balanceTree(T);
         }
-        return new Pair<>(minimum, A);
+        return new Pair<>(minimum, T);
     }
 
-    public static Node<Integer> equilibrer(Node<Integer> A) {
-        if (bal(A) == 2) {
-            if (bal(A.getRight()) >= 0) {
-                A = rotationGauche(A);
+    public static Node<Integer> balanceTree(Node<Integer> T) {
+        if (getBalance(T) == 2) {
+            if (getBalance(T.getRight()) >= 0) {
+                T = leftRotation(T);
             } else {
-                A.setRight(rotationDroite(A.getRight()));
-                A = rotationGauche(A);
+                T.setRight(rightRotation(T.getRight()));
+                T = leftRotation(T);
             }
         } else {
-            if (bal(A) == -2) {
-                if (bal(A.getLeft()) <= 0) {
-                    A = rotationDroite(A);
+            if (getBalance(T) == -2) {
+                if (getBalance(T.getLeft()) <= 0) {
+                    T = rightRotation(T);
                 } else {
-                    A.setLeft(rotationGauche(A.getLeft()));
-                    A = rotationDroite(A);
+                    T.setLeft(leftRotation(T.getLeft()));
+                    T = rightRotation(T);
                 }
             } else {
-                hauteur(A);
+                setHeight(T);
             }
         }
-        return A;
+        return T;
     }
 
-    public static int bal(final Node<Integer> A) {
+    public static int getBalance(final Node<Integer> T) {
         int bal;
-        if (estFeuille(A)) {
+        if (isLeaf(T)) {
             bal = 0;
         } else {
-            if (A.getLeft() == null) {
-                bal = A.getRight().getHeight();
+            if (T.getLeft() == null) {
+                bal = T.getRight().getHeight();
             } else {
-                if (A.getRight() == null) {
-                    bal = (A.getLeft().getHeight() * -1);
+                if (T.getRight() == null) {
+                    bal = (T.getLeft().getHeight() * -1);
                 } else {
-                    bal = A.getRight().getHeight() - A.getLeft().getHeight();
+                    bal = T.getRight().getHeight() - T.getLeft().getHeight();
                 }
             }
         }
         return bal;
     }
 
-    public static void hauteur(final Node<Integer> A) {
-        if (estFeuille(A)) {
-            A.setHeight(1);
+    public static void setHeight(final Node<Integer> T) {
+        if (isLeaf(T)) {
+            T.setHeight(1);
         } else {
-            if (A.getLeft() == null) {
-                A.setHeight(1 + A.getRight().getHeight());
+            if (T.getLeft() == null) {
+                T.setHeight(1 + T.getRight().getHeight());
             } else {
-                if (A.getRight() == null) {
-                    A.setHeight(1 + A.getLeft().getHeight());
+                if (T.getRight() == null) {
+                    T.setHeight(1 + T.getLeft().getHeight());
                 } else {
-                    A.setHeight(1 + Math.max(A.getRight().getHeight(), A.getLeft().getHeight()));
+                    T.setHeight(1 + Math.max(T.getRight().getHeight(), T.getLeft().getHeight()));
                 }
             }
         }
     }
 
-    public static Node<Integer> rotationGauche(Node<Integer> A) {
-        Node<Integer> temp = A;
-        A = A.getRight();
-        temp.setRight(A.getLeft());
-        A.setLeft(temp);
-        hauteur(temp);
-        hauteur(A);
-        return A;
+    public static Node<Integer> leftRotation(Node<Integer> T) {
+        Node<Integer> temp = T;
+        T = T.getRight();
+        temp.setRight(T.getLeft());
+        T.setLeft(temp);
+        setHeight(temp);
+        setHeight(T);
+        return T;
     }
 
-    public static Node<Integer> rotationDroite(Node<Integer> A) {
-        Node<Integer> temp = A;
-        A = A.getLeft();
-        temp.setLeft(A.getRight());
-        A.setRight(temp);
-        hauteur(temp);
-        hauteur(A);
-        return A;
+    public static Node<Integer> rightRotation(Node<Integer> T) {
+        Node<Integer> temp = T;
+        T = T.getLeft();
+        temp.setLeft(T.getRight());
+        T.setRight(temp);
+        setHeight(temp);
+        setHeight(T);
+        return T;
     }
 
-    public static boolean estFeuille(final Node<Integer> A) {
-        if (A.getLeft() == null && A.getRight() == null) {
+    public static boolean isLeaf(final Node<Integer> T) {
+        if (T.getLeft() == null && T.getRight() == null) {
             return true;
         }
         return false;
