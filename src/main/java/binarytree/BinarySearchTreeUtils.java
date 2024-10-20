@@ -2,22 +2,22 @@ package binarytree;
 
 public class BinarySearchTreeUtils {
 
-    public static boolean rechercheRecursiveABR(final Node<Integer> A, int k) {
-        if (A == null) {
+    public static boolean searchBST(final Node<Integer> T, int k) {
+        if (T == null) {
             return false;
         }
 
-        if (k == A.getKey()) {
+        if (k == T.getKey()) {
             return true;
-        } else if (k > A.getKey()) {
-            return rechercheRecursiveABR(A.getRight(), k);
+        } else if (k > T.getKey()) {
+            return searchBST(T.getRight(), k);
         } else {
-            return rechercheRecursiveABR(A.getLeft(), k);
+            return searchBST(T.getLeft(), k);
         }
     }
 
-    public static boolean rechercheIterativeABR(final Node<Integer> A, int k) {
-        Node<Integer> p = A;
+    public static boolean searchIterativeBST(final Node<Integer> T, int k) {
+        Node<Integer> p = T;
 
         while (p != null && p.getKey() != k) {
             if (k < p.getKey()) {
@@ -34,31 +34,31 @@ public class BinarySearchTreeUtils {
         return false;
     }
 
-    public static Node<Integer> insertionRecursiveABR(final Node<Integer> A, int k) {
-        if (A == null) {
+    public static Node<Integer> insertBST(final Node<Integer> T, int k) {
+        if (T == null) {
             return new Node<>(k);
         }
 
-        if (k <= A.getKey()) {
-            Node<Integer> p = insertionRecursiveABR(A.getLeft(), k);
-            A.setLeft(p);
+        if (k <= T.getKey()) {
+            Node<Integer> p = insertBST(T.getLeft(), k);
+            T.setLeft(p);
         }
 
-        if (k > A.getKey()) {
-            Node<Integer> p = insertionRecursiveABR(A.getRight(), k);
-            A.setRight(p);
+        if (k > T.getKey()) {
+            Node<Integer> p = insertBST(T.getRight(), k);
+            T.setRight(p);
         }
 
-        return A;
+        return T;
     }
 
-    public static Node<Integer> insertionIterativeABR(final Node<Integer> A, int k) {
+    public static Node<Integer> insertIterativeBST(final Node<Integer> T, int k) {
 
-        if (A == null) {
+        if (T == null) {
             return new Node<>(k);
         }
 
-        Node<Integer> p = A;
+        Node<Integer> p = T;
         boolean fin = false;
 
         while (!fin) {
@@ -79,45 +79,45 @@ public class BinarySearchTreeUtils {
             }
         }
 
-        return A;
+        return T;
     }
 
-    public static Node<Integer> suppressionABR(Node<Integer> A, int k) {
-        if (k < A.getKey()) {
-            A.setLeft(suppressionABR(A.getLeft(), k));
-        } else if (k > A.getKey()) {
-            A.setRight(suppressionABR(A.getRight(), k));
+    public static Node<Integer> deleteBST(Node<Integer> T, int k) {
+        if (k < T.getKey()) {
+            T.setLeft(deleteBST(T.getLeft(), k));
+        } else if (k > T.getKey()) {
+            T.setRight(deleteBST(T.getRight(), k));
         } else {
-            if (A.getLeft() == null) {
-                Node<Integer> p = A.getRight();
-                A = null;
-                A = p;
-            } else if (A.getRight() == null) {
-                Node<Integer> p = A.getLeft();
-                A = null;
-                A = p;
+            if (T.getLeft() == null) {
+                Node<Integer> p = T.getRight();
+                T = null;
+                T = p;
+            } else if (T.getRight() == null) {
+                Node<Integer> p = T.getLeft();
+                T = null;
+                T = p;
             } else {
-                Node<Integer> max = maximumABR(A.getLeft());
-                A.setKey(max.getKey());
-                A.setLeft(suppressionABR(A.getLeft(), max.getKey()));
+                Node<Integer> max = maximumBST(T.getLeft());
+                T.setKey(max.getKey());
+                T.setLeft(deleteBST(T.getLeft(), max.getKey()));
             }
         }
-        return A;
+        return T;
     }
 
-    public static Node<Integer> maximumABR(final Node<Integer> A) {
-        if (A.getRight() != null) {
-            return maximumABR(A.getRight());
+    public static Node<Integer> maximumBST(final Node<Integer> T) {
+        if (T.getRight() != null) {
+            return maximumBST(T.getRight());
         } else {
-            return A;
+            return T;
         }
     }
 
-    public static Node<Integer> minimumABR(final Node<Integer> A) {
-        if (A.getLeft() != null) {
-            return maximumABR(A.getLeft());
+    public static Node<Integer> minimumBST(final Node<Integer> T) {
+        if (T.getLeft() != null) {
+            return minimumBST(T.getLeft());
         } else {
-            return A;
+            return T;
         }
     }
 }
