@@ -5,6 +5,7 @@ public class Node<T extends Comparable<?>> implements BinaryTreeUtils.PrintableN
     private T key;
     private Node<T> left;
     private Node<T> right;
+    private Integer height;
 
     public Node(T key) {
         this.key = key;
@@ -50,5 +51,13 @@ public class Node<T extends Comparable<?>> implements BinaryTreeUtils.PrintableN
     @Override
     public String getText() {
         return String.valueOf(this.key);
+    }
+
+    public Integer getHeight() {
+        return height;
+    }
+
+    public void setHeight(Integer height) {
+        this.height = height;
     }
 }

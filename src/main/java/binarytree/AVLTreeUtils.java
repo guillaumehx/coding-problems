@@ -3,16 +3,34 @@ package binarytree;
 public class AVLTreeUtils {
 
     public static void main(String[] args) {
-        Node<Integer> root = new Node<>(63);
-        root.setLeft(new Node<>(9));
 
-        insertionRecursiveAVL(root, 19);
+        Node<Integer> n_17 = new Node<>(17);
+        n_17.setHeight(4);
+        Node<Integer> n_15 = new Node<>(15);
+        n_15.setHeight(2);
+        Node<Integer> n_10 = new Node<>(10);
+        n_10.setHeight(1);
+        Node<Integer> n_20 = new Node<>(20);
+        n_20.setHeight(3);
+        Node<Integer> n_30 = new Node<>(30);
+        n_30.setHeight(2);
+        Node<Integer> n_22 = new Node<>(22);
+        n_22.setHeight(1);
+
+        n_15.setLeft(n_10);
+        n_17.setLeft(n_15);
+        n_30.setLeft(n_22);
+        n_20.setRight(n_30);
+        n_17.setRight(n_20);
 
 
-        BinaryTreeUtils.Printer.printClean(root);
+        insertionAVL(n_17, 23);
+
+
+        BinaryTreeUtils.Printer.printClean(n_17);
     }
 
-    public static boolean rechercheRecursiveAVL(final Node<Integer> A, int k) {
+    public static boolean rechercheAVL(final Node<Integer> A, int k) {
          if (A == null) {
              return false;
          }
@@ -20,30 +38,32 @@ public class AVLTreeUtils {
         if (A.getKey() == k) {
             return true;
         } else if (k < A.getKey()) {
-            return rechercheRecursiveAVL(A.getLeft(), k);
+            return rechercheAVL(A.getLeft(), k);
         } else {
-            return rechercheRecursiveAVL(A.getRight(), k);
+            return rechercheAVL(A.getRight(), k);
         }
     }
 
-    public static Node<Integer> insertionRecursiveAVL(final Node<Integer> A, int k) {
+    public static Node<Integer> insertionAVL(Node<Integer> A, int k) {
         if (A == null) {
-            return new Node<>(k);
+            Node<Integer> ne = new Node<>(k);
+            ne.setHeight(1);
+            return ne;
         } else {
             if (k < A.getKey()) {
                 Node<Integer> p = insertionRecursiveAVL(A.getLeft(), k);
                 A.setLeft(p);
-                equilibrer(A);
+                A = equilibrer(A);
             } else if (k > A.getKey()) {
                 Node<Integer> p = insertionRecursiveAVL(A.getRight(), k);
                 A.setRight(p);
-                equilibrer(A);
+                A = equilibrer(A);
             }
             return A;
         }
     }
 
-    public static void equilibrer(Node<Integer> A) {
+    public static Node<Integer> equilibrer(Node<Integer> A) {
         if (bal(A) == 2) {
             if (bal(A.getRight()) >= 0) {
                 A = rotationGauche(A);
@@ -59,8 +79,11 @@ public class AVLTreeUtils {
                     A.setLeft(rotationGauche(A.getLeft()));
                     A = rotationDroite(A);
                 }
+            } else {
+                hauteur(A);
             }
         }
+        return A;
     }
 
     public static int bal(final Node<Integer> A) {
@@ -69,29 +92,29 @@ public class AVLTreeUtils {
             bal = 0;
         } else {
             if (A.getLeft() == null) {
-                bal = hauteur(A.getRight());
+                bal = A.getRight().getHeight();
             } else {
                 if (A.getRight() == null) {
-                    bal = (hauteur(A.getLeft()) * -1);
+                    bal = (A.getLeft().getHeight() * -1);
                 } else {
-                    bal = hauteur(A.getRight()) - hauteur(A.getLeft());
+                    bal = A.getRight().getHeight() - A.getLeft().getHeight();
                 }
             }
         }
         return bal;
     }
 
-    public static int hauteur(final Node<Integer> A) {
+    public static void hauteur(final Node<Integer> A) {
         if (A.getLeft() == null && A.getRight() == null) {
-            return 1;
+            A.setHeight(1);
         } else {
             if (A.getLeft() == null) {
-                return 1 + hauteur(A.getRight());
+                A.setHeight(1 + A.getRight().getHeight());
             } else {
                 if (A.getRight() == null) {
-                    return 1 + hauteur(A.getLeft());
+                    A.setHeight(1 + A.getLeft().getHeight());
                 } else {
-                    return 1 + Math.max(hauteur(A.getRight()), hauteur(A.getLeft()));
+                    A.setHeight(1 + Math.max(A.getRight().getHeight(), A.getLeft().getHeight()));
                 }
             }
         }
