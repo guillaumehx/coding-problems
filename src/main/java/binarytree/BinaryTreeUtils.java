@@ -445,5 +445,7 @@ public class BinaryTreeUtils {
         PrintableNode getRight();
 
         String getText();
+
+        Integer getHeight();
     }
 }

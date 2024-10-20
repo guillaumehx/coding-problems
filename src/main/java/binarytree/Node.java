@@ -53,6 +53,7 @@ public class Node<T extends Comparable<?>> implements BinaryTreeUtils.PrintableN
         return String.valueOf(this.key);
     }
 
+    @Override
     public Integer getHeight() {
         return height;
     }

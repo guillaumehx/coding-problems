@@ -1,40 +1,45 @@
 package binarytree;
 
+import org.javatuples.Pair;
+
 public class AVLTreeUtils {
 
     public static void main(String[] args) {
 
-        Node<Integer> n_17 = new Node<>(17);
-        n_17.setHeight(4);
         Node<Integer> n_15 = new Node<>(15);
-        n_15.setHeight(2);
-        Node<Integer> n_10 = new Node<>(10);
-        n_10.setHeight(1);
-        Node<Integer> n_20 = new Node<>(20);
-        n_20.setHeight(3);
-        Node<Integer> n_30 = new Node<>(30);
-        n_30.setHeight(2);
-        Node<Integer> n_22 = new Node<>(22);
-        n_22.setHeight(1);
+        n_15.setHeight(3);
+        Node<Integer> n_9 = new Node<>(9);
+        n_9.setHeight(2);
+        Node<Integer> n_14 = new Node<>(14);
+        n_14.setHeight(1);
+        Node<Integer> n_71 = new Node<>(71);
+        n_71.setHeight(2);
+        Node<Integer> n_66 = new Node<>(66);
+        n_66.setHeight(1);
+        Node<Integer> n_96 = new Node<>(96);
+        n_96.setHeight(1);
 
-        n_15.setLeft(n_10);
-        n_17.setLeft(n_15);
-        n_30.setLeft(n_22);
-        n_20.setRight(n_30);
-        n_17.setRight(n_20);
+        n_71.setRight(n_96);
+        n_71.setLeft(n_66);
+        n_9.setRight(n_14);
+        n_15.setLeft(n_9);
+        n_15.setRight(n_71);
 
-
-        insertionAVL(n_17, 23);
-
-
-        BinaryTreeUtils.Printer.printClean(n_17);
+        BinaryTreeUtils.Printer.printClean(n_15);
+        n_15 = insertionAVL(n_15, 69);
+        n_15 = insertionAVL(n_15, 70);
+        n_15 = insertionAVL(n_15, 65);
+        n_15 = insertionAVL(n_15, 64);
+        n_15 = insertionAVL(n_15, 63);
+        n_15 = suppressionAVL(n_15, 65);
+        BinaryTreeUtils.Printer.printClean(n_15);
+        //BinaryTreeUtils.Printer.printCompact(n_15);
     }
 
     public static boolean rechercheAVL(final Node<Integer> A, int k) {
-         if (A == null) {
+        if (A == null) {
              return false;
-         }
-
+        }
         if (A.getKey() == k) {
             return true;
         } else if (k < A.getKey()) {
@@ -46,21 +51,69 @@ public class AVLTreeUtils {
 
     public static Node<Integer> insertionAVL(Node<Integer> A, int k) {
         if (A == null) {
-            Node<Integer> ne = new Node<>(k);
-            ne.setHeight(1);
-            return ne;
+            A = new Node<>(k);
+            A.setHeight(1);
         } else {
             if (k < A.getKey()) {
-                Node<Integer> p = insertionRecursiveAVL(A.getLeft(), k);
-                A.setLeft(p);
+                A.setLeft(insertionAVL(A.getLeft(), k));
                 A = equilibrer(A);
             } else if (k > A.getKey()) {
-                Node<Integer> p = insertionRecursiveAVL(A.getRight(), k);
-                A.setRight(p);
+                A.setRight(insertionAVL(A.getRight(), k));
                 A = equilibrer(A);
             }
-            return A;
         }
+        return A;
+    }
+
+    public static Node<Integer> suppressionAVL(Node<Integer> A, int k) {
+        if (A != null) {
+            if (k < A.getKey()) {
+                A.setLeft(suppressionAVL(A.getLeft(), k));
+                A = equilibrer(A);
+            } else {
+                if (k > A.getKey()) {
+                    A.setRight(suppressionAVL(A.getRight(), k));
+                    A = equilibrer(A);
+                } else {
+                    A = suppressionRacineAVL(A);
+                }
+            }
+        }
+        return A;
+    }
+
+    public static Node<Integer> suppressionRacineAVL(Node<Integer> A) {
+        if (estFeuille(A)) {
+            A = null;
+        } else {
+            if (A.getLeft() == null) {
+                A = A.getRight();
+            } else {
+                if (A.getRight() == null) {
+                    A = A.getLeft();
+                } else {
+                    Pair<Integer, Node<Integer>> pair = suppressionMinAVL(A.getRight());
+                    A.setKey(pair.getValue0());
+                    A.setRight(pair.getValue1());
+                    A = equilibrer(A);
+                }
+            }
+        }
+        return A;
+    }
+
+    public static Pair<Integer, Node<Integer>> suppressionMinAVL(Node<Integer> A) {
+        int minimum;
+        if (A.getLeft() == null) {
+            minimum = A.getKey();
+            A = A.getRight();
+        } else {
+            Pair<Integer, Node<Integer>> pair = suppressionMinAVL(A.getLeft());
+            minimum = pair.getValue0();
+            A.setLeft(pair.getValue1());
+            A = equilibrer(A);
+        }
+        return new Pair<>(minimum, A);
     }
 
     public static Node<Integer> equilibrer(Node<Integer> A) {
@@ -88,7 +141,7 @@ public class AVLTreeUtils {
 
     public static int bal(final Node<Integer> A) {
         int bal;
-        if (A.getLeft() == null && A.getRight() == null) {
+        if (estFeuille(A)) {
             bal = 0;
         } else {
             if (A.getLeft() == null) {
@@ -105,7 +158,7 @@ public class AVLTreeUtils {
     }
 
     public static void hauteur(final Node<Integer> A) {
-        if (A.getLeft() == null && A.getRight() == null) {
+        if (estFeuille(A)) {
             A.setHeight(1);
         } else {
             if (A.getLeft() == null) {
@@ -125,6 +178,8 @@ public class AVLTreeUtils {
         A = A.getRight();
         temp.setRight(A.getLeft());
         A.setLeft(temp);
+        hauteur(temp);
+        hauteur(A);
         return A;
     }
 
@@ -133,7 +188,16 @@ public class AVLTreeUtils {
         A = A.getLeft();
         temp.setLeft(A.getRight());
         A.setRight(temp);
+        hauteur(temp);
+        hauteur(A);
         return A;
+    }
+
+    public static boolean estFeuille(final Node<Integer> A) {
+        if (A.getLeft() == null && A.getRight() == null) {
+            return true;
+        }
+        return false;
     }
 
 }
