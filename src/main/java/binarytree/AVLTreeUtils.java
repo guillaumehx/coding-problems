@@ -26,12 +26,19 @@ public class AVLTreeUtils {
         n_15.setRight(n_71);
 
         BinaryTreeUtils.Printer.printClean(n_15);
+        System.out.println(isAVL(n_15));
         n_15 = insertAVL(n_15, 69);
+        System.out.println(isAVL(n_15));
         n_15 = insertAVL(n_15, 70);
+        System.out.println(isAVL(n_15));
         n_15 = insertAVL(n_15, 65);
+        System.out.println(isAVL(n_15));
         n_15 = insertAVL(n_15, 64);
+        System.out.println(isAVL(n_15));
         n_15 = insertAVL(n_15, 63);
+        System.out.println(isAVL(n_15));
         n_15 = deleteAVL(n_15, 65);
+        System.out.println(isAVL(n_15));
         BinaryTreeUtils.Printer.printClean(n_15);
         //BinaryTreeUtils.Printer.printCompact(n_15);
     }
@@ -198,6 +205,20 @@ public class AVLTreeUtils {
             return true;
         }
         return false;
+    }
+
+    public static boolean isAVL(final Node<Integer> T) {
+        if (T == null) {
+            return true;
+        }
+        if (isLeaf(T)) {
+            return true;
+        }
+        if (Math.abs(getBalance(T)) <= 1 && isAVL(T.getLeft()) && isAVL(T.getRight())) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }
