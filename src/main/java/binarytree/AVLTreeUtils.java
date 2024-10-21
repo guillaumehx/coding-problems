@@ -26,19 +26,20 @@ public class AVLTreeUtils {
         n_15.setRight(n_71);
 
         BinaryTreeUtils.Printer.printClean(n_15);
-        System.out.println(isAVL(n_15));
+        System.out.println(checkAVL(n_15));
         n_15 = insertAVL(n_15, 69);
-        System.out.println(isAVL(n_15));
+        System.out.println(checkAVL(n_15));
         n_15 = insertAVL(n_15, 70);
-        System.out.println(isAVL(n_15));
+        System.out.println(checkAVL(n_15));
         n_15 = insertAVL(n_15, 65);
-        System.out.println(isAVL(n_15));
+        System.out.println(checkAVL(n_15));
         n_15 = insertAVL(n_15, 64);
-        System.out.println(isAVL(n_15));
+        System.out.println(checkAVL(n_15));
         n_15 = insertAVL(n_15, 63);
-        System.out.println(isAVL(n_15));
+        System.out.println(checkAVL(n_15));
+        BinaryTreeUtils.Printer.printClean(n_15);
         n_15 = deleteAVL(n_15, 65);
-        System.out.println(isAVL(n_15));
+        System.out.println(checkAVL(n_15));
         BinaryTreeUtils.Printer.printClean(n_15);
         //BinaryTreeUtils.Printer.printCompact(n_15);
     }
@@ -207,17 +208,25 @@ public class AVLTreeUtils {
         return false;
     }
 
-    public static boolean isAVL(final Node<Integer> T) {
+    public static boolean checkAVL(final Node<Integer> T) {
+        return isAVL(T).getValue1();
+    }
+
+    private static Pair<Integer, Boolean> isAVL(final Node<Integer> T) {
+
         if (T == null) {
-            return true;
+            return new Pair<>(0, true);
         }
-        if (isLeaf(T)) {
-            return true;
-        }
-        if (Math.abs(getBalance(T)) <= 1 && isAVL(T.getLeft()) && isAVL(T.getRight())) {
-            return true;
+
+        Pair<Integer, Boolean> leftAvl = isAVL(T.getLeft());
+        Pair<Integer, Boolean> rightAvl = isAVL(T.getRight());
+        int heightDifference = Math.abs(rightAvl.getValue0() - leftAvl.getValue0());
+        int max = Math.max(rightAvl.getValue0(), leftAvl.getValue0());
+
+        if (heightDifference <= 1 && leftAvl.getValue1() && rightAvl.getValue1()) {
+            return new Pair<>(max + 1, true);
         } else {
-            return false;
+            return new Pair<>(max + 1, false);
         }
     }
 
