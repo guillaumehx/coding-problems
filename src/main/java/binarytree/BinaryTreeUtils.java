@@ -1,8 +1,30 @@
 package binarytree;
 
+import org.javatuples.Pair;
+
 import java.util.*;
 
 public class BinaryTreeUtils {
+
+    public static Pair<Integer, Integer> numberOfOddNodes(Node<Integer> T) {
+        if (T == null) {
+            return new Pair<>(0, 0);
+        }
+        if (T.getLeft() == null && T.getRight() == null) {
+            return new Pair<>(1, 1);
+        }
+
+        Pair<Integer, Integer> p1 = numberOfOddNodes(T.getLeft());
+        Pair<Integer, Integer> p2 = numberOfOddNodes(T.getRight());
+
+        int totalNodes = p1.getValue0() + p2.getValue0() + 1;
+
+        if (totalNodes % 2 == 1) {
+            return new Pair<>(totalNodes, p1.getValue1() + p2.getValue1() + 1);
+        } else {
+            return new Pair<>(totalNodes, p1.getValue1() + p2.getValue1());
+        }
+    }
 
     public static void parcoursPrefixe(Node<?> A) {
         if (A != null) {
