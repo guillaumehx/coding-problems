@@ -1,6 +1,17 @@
 package binarytree;
 
+import java.util.Random;
+
 public class BinarySearchTreeUtils {
+
+    public static Node<Integer> createTree(Integer numberOfNodes, Integer maxValue) {
+        Random random = new Random();
+        Node<Integer> tree = null;
+        for (int i = 0; i < numberOfNodes; i++) {
+            tree = BinarySearchTreeUtils.insertBST(tree, random.nextInt(maxValue));
+        }
+        return tree;
+    }
 
     public static boolean searchBST(final Node<Integer> T, int k) {
         if (T == null) {

@@ -5,10 +5,10 @@ import org.junit.Test;
 public class BinaryTreeUtilsTest {
 
     @Test
-    public void testEvenNodes() {
+    public void testOddNodes() {
         Node<Integer> T = BinarySearchTreeUtils.createTree(10, 20);
         BinaryTreeUtils.Printer.printClean(T);
-        System.out.println(BinaryTreeUtils.numberOfEvenNodes(T));
+        System.out.println(BinaryTreeUtils.numberOfOddNodes(T));
     }
 
 }
