@@ -16,8 +16,8 @@ public class LinkedListUtils {
         }
     }
 
-    public static void insertFin(LinkedList list, int i) {
-        Link link = dernierElement(list);
+    public static void insertLast(LinkedList list, int i) {
+        Link link = lastElement(list);
         if (link == null) {
             insertHead(list, i);
         } else {
@@ -25,7 +25,7 @@ public class LinkedListUtils {
         }
     }
 
-    public static Link dernierElement(LinkedList list) {
+    public static Link lastElement(LinkedList list) {
         Link link = list.getHead();
         if (link == null) {
             return null;
@@ -81,7 +81,7 @@ public class LinkedListUtils {
 
     }
 
-    public static void afficherListe(LinkedList list) {
+    public static void displayList(LinkedList list) {
         Link link = list.getHead();
         while (link != null) {
             System.out.print(link.getElement() + " ");
